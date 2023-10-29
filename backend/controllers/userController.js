@@ -7,30 +7,28 @@ const userRegister = async (req, res) => {
   const { name, email, password } = req.body;
   try {
     const userExist = await userModel.findOne({ email });
-    const hashedPassword = await encryptPassword(req.body.password);
+    const hashedPassword = await encryptPassword(password);
     if (userExist) {
       res.send(400).json({
         message: "Email is already Existing",
         status: false,
       });
-    }else {
+    } else {
       await userModel.create({
-      name,
-      email,
-      password: hashedPassword,
-    });
+        name,
+        email,
+        password: hashedPassword,
+      });
 
-    res.send(200).json({
-      message: "Registration Completed Successfully",
-      status: true,
-    });
-  }
+      res.send(200).json({
+        message: "Registration Completed Successfully",
+        status: true,
+      });
+    }
   } catch (error) {
     res.status(500).json(error);
   }
 };
-
-
 
 const userLogin = async (req, res) => {
   const { email, password } = req.body;
@@ -42,23 +40,42 @@ const userLogin = async (req, res) => {
         message: "User not Exist",
         status: false,
       });
-    }else if (!decryptedPassword) {
+    } else if (!decryptedPassword) {
       res.status(400).json({
         message: "Incorrect Password",
         status: false,
       });
+    } else {
+      const user = await generateToken(userExist._id, userExist.email);
+
+      res.status(200).json({
+        message: "Login Successfull",
+        status: true,
+        user,
+      });
     }
-
-    const user = await generateToken(userExist._id, userExist.email);
-
-    res.status(200).json({
-      message: "Login Successfull",
-      status: true,
-      user
-    });
   } catch (error) {
     res.status(500).json(error);
   }
 };
 
-module.exports = { userRegister, userLogin };
+const findUser = async(req, res) => {
+  const userId = req.params.userId
+  try {
+    const user = await userModel.findById(userId)
+    res.status(200).json(user)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+const getAllUsers = async(req, res) => {
+  try {
+    const users = await userModel.find()
+    res.status(200).json(users)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+module.exports = { userRegister, userLogin, findUser, getAllUsers };
