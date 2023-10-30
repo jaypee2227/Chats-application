@@ -13,16 +13,19 @@ const userRegister = async (req, res) => {
         message: "Email is already Existing",
         status: false,
       });
-    } else {
-      await userModel.create({
+    } 
+    
+    if(!userExist){
+      const user = await userModel.create({
         name,
         email,
         password: hashedPassword,
       });
 
-      res.send(200).json({
+      res.status(200).json({
         message: "Registration Completed Successfully",
         status: true,
+        user
       });
     }
   } catch (error) {
@@ -78,4 +81,4 @@ const getAllUsers = async(req, res) => {
   }
 }
 
-module.exports = { userRegister, userLogin, findUser, getAllUsers };
+module.exports = { userRegister, userLogin, findUser, getAllUsers};
