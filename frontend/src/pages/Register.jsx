@@ -1,9 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState} from "react";
 import { Button, Form, Row, Col, Stack } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toastSuccess, toastfailure } from "../utils/ToastMessages";
-import { AuthContext } from "../context/AuthContext";
 import axios from "axios"
 import { registerRoute } from "../utils/services";
 import {useNavigate} from "react-router-dom"
@@ -13,7 +12,6 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { registerInfo, setRegisterInfo } = useContext(AuthContext);
   const navigate = useNavigate()
 
   const handleName = (event) => {
@@ -63,8 +61,12 @@ const Register = () => {
       }
       if(respo.data.status === true){
         toast.success(respo.data.message, toastSuccess)
+        setName("")
+        setPassword("")
+        setEmail("")
+        setConfirmPassword("")
       }
-      setInterval(()=>{
+      setTimeout(()=>{
         navigate('/login')
       },3000)
     }
@@ -86,25 +88,25 @@ const Register = () => {
               <h2>Register</h2>
               <Form.Control
                 type="text"
-                placeholder="Enter your name"
+                placeholder="Enter name"
                 onChange={handleName}
                 value={name}
               />
               <Form.Control
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Enter email"
                 onChange={handleEmail}
                 value={email}
               />
               <Form.Control
                 type="password"
-                placeholder="Enter your password"
+                placeholder="Enter password"
                 onChange={handlePassword}
                 value={password}
               />
               <Form.Control
                 type="password"
-                placeholder="Enter your Confirm Password"
+                placeholder="Enter Confirm Password"
                 onChange={handleConfirmPassword}
                 value={confirmPassword}
               />

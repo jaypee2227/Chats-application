@@ -2,7 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/connect");
-const router = require("./routes/userRoute");
+const userRouter = require("./routes/userRoute");
+const chatRouter = require("./routes/chatRoutes");
+const messageRouter = require("./routes/messageRoute");
 
 dotenv.config();
 
@@ -21,7 +23,9 @@ app.use(
 connectDB();
 
 app.use(express.urlencoded({ extended: false }));
-app.use('/api/v1/auth', router)
+app.use("/api/v1/auth", userRouter);
+app.use("/api/v1/chat", chatRouter);
+app.use("/api/v1/message", messageRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running at port : ${PORT}`);

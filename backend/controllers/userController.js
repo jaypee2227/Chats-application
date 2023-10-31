@@ -13,9 +13,9 @@ const userRegister = async (req, res) => {
         message: "Email is already Existing",
         status: false,
       });
-    } 
-    
-    if(!userExist){
+    }
+
+    if (!userExist) {
       const user = await userModel.create({
         name,
         email,
@@ -25,7 +25,7 @@ const userRegister = async (req, res) => {
       res.status(200).json({
         message: "Registration Completed Successfully",
         status: true,
-        user
+        user,
       });
     }
   } catch (error) {
@@ -39,7 +39,7 @@ const userLogin = async (req, res) => {
     const userExist = await userModel.findOne({ email });
     const decryptedPassword = decryptPassword(password, userExist.password);
     if (!userExist) {
-      res.status(400).json({
+      res.status(500).json({
         message: "User not Exist",
         status: false,
       });
@@ -55,30 +55,34 @@ const userLogin = async (req, res) => {
         message: "Login Successfull",
         status: true,
         user,
+        userExist,
       });
     }
+  } catch (error) {
+    res.status(500).json({
+      message: "Something went wrong",
+      status: false,
+    });
+  }
+};
+
+const findUser = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const user = await userModel.findById(userId);
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json(error);
   }
 };
 
-const findUser = async(req, res) => {
-  const userId = req.params.userId
+const getAllUsers = async (req, res) => {
   try {
-    const user = await userModel.findById(userId)
-    res.status(200).json(user)
+    const users = await userModel.find();
+    res.status(200).json(users);
   } catch (error) {
-    res.status(500).json(error)
+    res.status(500).json(error);
   }
-}
+};
 
-const getAllUsers = async(req, res) => {
-  try {
-    const users = await userModel.find()
-    res.status(200).json(users)
-  } catch (error) {
-    res.status(500).json(error)
-  }
-}
-
-module.exports = { userRegister, userLogin, findUser, getAllUsers};
+module.exports = { userRegister, userLogin, findUser, getAllUsers };
