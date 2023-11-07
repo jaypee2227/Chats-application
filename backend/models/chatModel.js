@@ -2,7 +2,24 @@ const mongoose = require("mongoose");
 
 const chatSchema = new mongoose.Schema(
   {
-    members: Array,
+    chatName: {
+      type: String,
+      trim: true,
+    },
+    isGroupchat: {
+      type: Boolean,
+      default: false,
+    },
+    users: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "userModel",
+      },
+    ],
+    latestMessage: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "messageModel",
+    },
   },
   {
     timestamps: true,

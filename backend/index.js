@@ -22,6 +22,7 @@ app.use(
 );
 connectDB();
 
+
 app.use(express.urlencoded({ extended: false }));
 app.use("/api/v1/auth", userRouter);
 app.use("/api/v1/chat", chatRouter);

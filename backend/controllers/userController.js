@@ -50,7 +50,6 @@ const userLogin = async (req, res) => {
       });
     } else {
       const user = await generateToken(userExist._id, userExist.email);
-
       res.status(200).json({
         message: "Login Successfull",
         status: true,
@@ -66,23 +65,22 @@ const userLogin = async (req, res) => {
   }
 };
 
-const findUser = async (req, res) => {
-  const userId = req.params.userId;
-  try {
-    const user = await userModel.findById(userId);
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
-
 const getAllUsers = async (req, res) => {
-  try {
-    const users = await userModel.find();
-    res.status(200).json(users);
-  } catch (error) {
-    res.status(500).json(error);
-  }
+   const keyword = req.query.search
+    ? {
+        $or: [
+          { name: { $regex: req.query.search, $options: "i" } },
+          { email: { $regex: req.query.search, $options: "i" } },
+        ],
+      }
+    : {};
+
+    console.log(req.user,"from controller")
+  const users = await userModel.find(keyword).find({_id:{ $ne: req.user._id }});
+
+  res.status(200).json({
+    users,
+  });
 };
 
-module.exports = { userRegister, userLogin, findUser, getAllUsers };
+module.exports = { userRegister, userLogin, getAllUsers };

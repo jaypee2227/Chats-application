@@ -34,10 +34,13 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     if(dataValidation()){
+      const config = {
+        email : email,
+      }
       const respo = await axios.post(loginRoutes, {
         email,
         password
-      })
+      },config)
       if(respo.data.status === false){
         toast.error(respo.data.message, toastfailure)
       }
