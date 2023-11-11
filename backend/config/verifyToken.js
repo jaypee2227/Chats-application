@@ -8,7 +8,6 @@ const verifyToken = async (req, res, next) => {
       token = await req.headers.authorization.split(" ")[1];
       const decodeToken = jwt.verify(token, process.env.SECRET_KEY);
       req.user = await userModel.findById(decodeToken.id).select("-password");
-      console.log(req.user,"from user")
       next();
     } catch (error) {
       res.status(401).json({

@@ -66,7 +66,7 @@ const userLogin = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-   const keyword = req.query.search
+  const keyword = req.query.search
     ? {
         $or: [
           { name: { $regex: req.query.search, $options: "i" } },
@@ -75,9 +75,9 @@ const getAllUsers = async (req, res) => {
       }
     : {};
 
-    console.log(req.user,"from controller")
-  const users = await userModel.find(keyword).find({_id:{ $ne: req.user._id }});
-
+  const users = await userModel
+    .find(keyword)
+    .find({ _id: { $ne: req.user._id } });
   res.status(200).json({
     users,
   });

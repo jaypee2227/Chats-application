@@ -11,6 +11,5 @@ const router = express.Router();
 router.post("/", userRegister);
 router.post("/login", userLogin);
 router.get("/getallusers", verifyToken, getAllUsers);
-router.get("/verify", verifyToken);
 
 module.exports = router;
