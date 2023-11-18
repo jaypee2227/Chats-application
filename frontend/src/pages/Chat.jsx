@@ -1,24 +1,15 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { getUsers } from "../utils/services";
+import React from 'react'
+import Sidebar from '../components/Sidebar'
+import ChatMessages from '../components/ChatMessages'
+import "../styles/Chat.css"
 
 const Chat = () => {
-  const[newUsers,setNewUsers] = useState({})
-  useEffect(() => {
-    const token = localStorage.getItem("user");
-    const config = { headers: { Authorization: "Bearer " + token } };
-    axios.get(getUsers, config).then(async (res)=>{ await setNewUsers(res)
-    console.log(setNewUsers)})
-  }, []);
-  return <>
-  {
-    // users.map(user=>{
-    //   <div key={user._id}>
-    //     <h1>{user.name}</h1>
-    //   </div>
-    // })
-  }
-  </>;
-};
+  return (
+    <div className='Container'>
+      <Sidebar/>
+      <ChatMessages/>
+    </div>
+  )
+}
 
-export default Chat;
+export default Chat

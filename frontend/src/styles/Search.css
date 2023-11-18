@@ -1,0 +1,53 @@
+.input{
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    color: white;
+    outline: none;
+    font-size: large;
+}
+
+.searchForm{
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 2px solid white;
+}
+
+.searchBtn{
+    font-size: large;
+}
+
+.userChat{
+    display: flex;
+    place-items: center;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+.userChatInfo{
+    margin-left: 20px;
+    font-size: larger;
+    display: flex;
+    flex-direction: column;
+}
+
+.msg{
+    font-size: small;
+}
+
+.circle{
+    border: 1px solid white;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.name{
+    font-size: larger;
+}
+
+.letter{
+    padding-top: 30px;
+    font-size: "bold";
+}
