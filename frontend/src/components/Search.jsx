@@ -14,7 +14,7 @@ const Search = () => {
       </div>
       <div className="userChat">
         <div className="circle">
-          <p className="letter">J</p>
+          <h1 className="letter">J</h1>
         </div>
         <div className="userChatInfo">
           <span className="name">Jane</span>

@@ -1,24 +1,8 @@
-.input {
-    width: 100%;
-    border: none;
-    background-color: transparent;
-    color: white;
-    outline: none;
-    font-size: large;
+.contain{
+    height: 150px;
 }
 
-.searchForm {
-    display: flex;
-    justify-content: space-evenly;
-    border-bottom: 2px solid white;
-    border-radius: 10px;
-}
-
-.searchBtn {
-    font-size: large;
-}
-
-.userChat {
+.userChat{
     display: flex;
     place-items: center;
     margin-top: 20px;
@@ -27,34 +11,34 @@
     padding: 15px;
 }
 
-.userChat:hover {
+.userChat:hover{
     background-color: black;
 }
 
-.userChatInfo {
+.userChatInfo{
     margin-left: 20px;
     font-size: larger;
     display: flex;
     flex-direction: column;
 }
 
-.msg {
+.msg{
     font-size: small;
 }
 
-.circle {
+.circle{
     border: 1px solid white;
     height: 70px;
     width: 70px;
     border-radius: 50%;
     text-align: center;
-}
+} 
 
-.name {
+.name{
     font-size: larger;
 }
 
-.letter {
+.letter{
     padding-top: 6px;
     font-weight: 900;
     font-size: "60px";
